@@ -5,3 +5,5 @@ for (int i = 1; i < 4; i++){
     nums.Add(int.Parse(Console.ReadLine()));
 }
 Console.Write($"Максимальное число: {nums.Max()}");
+
+commit!
