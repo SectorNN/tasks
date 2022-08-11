@@ -3,4 +3,7 @@
 Console.Write("Введите 3-ёх значное число: ");
 string number = Console.ReadLine();
 
-Console.Write($"Вторая цифра числа: {number[1]}");
+Console.WriteLine($"Вторая цифра числа: {number[1]}");
+
+int num = int.Parse(number);
+Console.Write($"Арифметическим методом: {num % 100 / 10}");
