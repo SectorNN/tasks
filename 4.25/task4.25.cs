@@ -23,12 +23,7 @@ int Expon(int a, int b)         // Функция, возводящая в ст�
     return ex;
 }
 
-int[] numInt = new int[2];
+int a = ReadInt($"Введите первое число: ");
+int b = ReadInt($"Введите второе число: ");
 
-for (int i = 0; i < 2; i++)
-{
-    numInt[i] = ReadInt($"Введите {i + 1} число: ");
-    if (numInt[1] < 0) i--;     // Принимаем только положительную степень
-}
-
-Console.Write($"{numInt[0]}^{numInt[1]} = {Expon(numInt[0], numInt[1])}");
+Console.Write($"{a}^{b} = {Expon(a, b)}");
