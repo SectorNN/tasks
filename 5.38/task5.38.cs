@@ -12,16 +12,6 @@ int[] GenArr(int len, int randMin = 100, int randMax = 1000)
     return arr;
 }
 
-int GetSumOdds(int[] arr)
-{
-    int sum = 0;
-    for (int i = 1; i < arr.Length; i += 2)
-    {
-        sum += arr[i];
-    }
-    return sum;
-}
-
 int[] arr = GenArr(10);
 Console.WriteLine($"Сгенерированный массив:\n{String.Join(" ", arr)}");
 Console.WriteLine($"Разница между максимальным и минимальным значениями: {arr.Max() - arr.Min()}");
