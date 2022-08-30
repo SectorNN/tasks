@@ -41,8 +41,8 @@ float [] GetSumOfRows(int[,] arr)                   // Функция возвр
         for (int x = 0; x < arr.GetLength(0); x++)
         {
             sums[y] += arr[x, y];
-            if (x == arr.GetLength(0) - 1) sums[y] /= arr.GetLength(0);
         }
+        sums[y] /= arr.GetLength(0);
     }
     return sums;
 }
