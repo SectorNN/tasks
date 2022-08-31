@@ -1,104 +1,105 @@
-﻿// Задача 1. Напишите программу, которая перевернёт одномерный массив (последний элемент будет на первом месте, а первый - на последнем и т.д.).
-// Элементы двумерного массива задаются случано и лежат в промежутке от -10 до 10
+﻿// Задача 1: Задайте двумерный массив случайных чисел от 0 до 10. Напишите программу, которая поменяет местами 
+// первую и последнюю строку массива.
 
-// [1 2 3 4 5] -> [5 4 3 2 1]
-// [6 7 3 6] -> [6 3 7 6]
-
-int[] GenArr(int len, int randMin = -10, int randMax = 11)
-{
-    Random rand = new Random();
-    int[] arr = new int[len];
-    for (int i = 0; i < len; i++){
-        arr[i] = rand.Next(randMin, randMax);
-    }
-    return arr;
-}
-
-int[] ArrRevert(int[] arr)
-{
-    for (int i = 0; i < arr.Length / 2; i++)
-    {
-        arr[arr.Length - i - 1] += arr[i];
-        arr[i] = arr[arr.Length - i - 1] - arr[i];
-        arr[arr.Length - i - 1] -= arr[i];
-    }
-    return arr;
-}
-
-double ArrAv(int[] arr){
-    double sum = 0;
-    int count = 0;
-    foreach (int i in arr)
-    {
-        if (i > 0){
-            sum += i;
-            count++;
-        }
-    }
-    return sum / count;
-}
-
-// int[] arr = GenArr(10);
-// Console.Write($"Arr: {String.Join(" ", arr)}\n");
-// Console.Write($"RevertArr: {String.Join(" ", ArrRevert(arr))}\n");
-// Console.Write($"Avv: {ArrAv(arr)}");
-
-
-// Задача 1: Задайте двумерный массив размера m на n, каждый элемент в массиве находится по формуле: Aₘₙ = m+n. Выведите полученный массив на экран.
-
-// m = 3, n = 4.
-
-// 0 1 2 3
-// 1 2 3 4
-// 2 3 4 5
-
-int[,] GenerateDualArr(int m = 3, int n = 4)          // Функция генерирует двухмерный массив
-{
-    int[,] dualArr = new int[m, n];
-    Random rnd = new Random();
-    for (int x = 0; x < 3; x++)
-    {
-        for (int y = 0; y < 4; y++)
-        {
-            dualArr[x, y] = x + y;
-//          if ((x + 1) % 2 == 0 && (y + 1) % 2 ==0) dualArr[x, y] *= dualArr[x, y];
-            Console.Write($"{dualArr[x, y]}\t");
-        }
-        Console.WriteLine();
-    }
-    return dualArr;
-}
-
-int [,] ArrOddReplace(int[,] arr)
-{
-    for (int x = 0; x < arr.GetLength(0); x++)
-    {
-        for (int y = 0; y < arr.GetLength(1); y++)
-        {
-            if ((x + 1) % 2 == 0 && (y + 1) % 2 ==0) arr[x, y] *= arr[x, y];
-            Console.Write($"{arr[x, y]}\t");
-        }
-        Console.WriteLine();
-
-    }
-    return arr;
-}
-
-int [,] arr = GenerateDualArr();
-Console.WriteLine();
-ArrOddReplace(arr);
-
-
-// Задача 2: Задайте двумерный массив. Найдите элементы, у которых оба индекса чётные, и замените эти элементы на их квадраты.
-
-// Например, изначально массив выглядел вот так:
+// Например, задан массив:
 
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
 
-// Новый массив будет выглядеть вот так:
+// В итоге получается вот такой массив:
 
-// 1 4 7 2
-// 5 81 2 9
 // 8 4 2 4
+// 5 9 2 3
+// 1 4 7 2
+
+Console.Clear();
+int[,] GenerateDualArr(int nx = 5, int ny = 6)          // Функция генерирует двухмерный массив
+{
+    int[,] dualArr = new int[nx, ny];
+    Random rnd = new Random();
+    for (int x = 0; x < nx; x++)
+    {
+        for (int y = 0; y < ny; y++)
+        {
+            dualArr[x, y] = rnd.Next(0, 10);
+        }
+    }
+    return dualArr;
+}
+
+void PrintArr(int[,] arr)                               // Функция выводит двухмерный массив
+{
+    for (int x = 0; x < arr.GetLength(0); x++)
+    {
+        for (int y = 0; y < arr.GetLength(1); y++)
+        {
+            Console.Write($"{arr[x, y]}\t");
+        }
+        Console.WriteLine();
+    }
+}
+
+void ReverseRows(int[,] arr)
+{
+    int [,] tmpArr = new int [arr.GetLength(0), arr.GetLength(1)];
+        for (int y = 0; y < arr.GetLength(1); y++)
+        {
+            tmpArr[0, y] = arr[0, y];
+            arr[0, y] = arr[arr.GetLength(0) - 1, y];
+            arr[arr.GetLength(0) - 1, y] = tmpArr[0, y];
+        }
+}
+
+int[,] arr = GenerateDualArr();
+PrintArr(arr);
+Console.WriteLine();
+ReverseRows(arr);
+PrintArr(arr);
+
+int [,] RemoveRowCol (int[,] arr)
+{
+    int minR = 0;
+    int minC = 0;
+    int minVal = arr[0, 0];
+    int useCOffset = 0;
+    int useROffset = 0;
+    int[,] newArr = new int[arr.GetLength(0) - 1, arr.GetLength(1) -1];
+    for (int r = 0; r < arr.GetLength(0); r++)
+    {
+        for (int c = 0; c < arr.GetLength(1); c++)
+        {
+            if (arr[r, c] < minVal)
+            {
+                minVal = arr[r, c];
+                minR = r;
+                minC = c;
+            }
+        }
+    }
+    for (int r = 0; r < arr.GetLength(0); r++)
+    {
+        useCOffset = 0;
+        if (r == minR)
+        {
+            useROffset = 1;
+            continue;
+        }
+        for (int c = 0; c < arr.GetLength(1); c++)
+        {
+            if (c == minC) 
+            {
+                useCOffset = 1;
+                continue;
+            }
+            newArr[r - useROffset, c - useCOffset] = arr[r, c];
+        }
+    }
+    return newArr;
+}
+
+Console.WriteLine();
+PrintArr(RemoveRowCol(arr));
+
+// Задача 2: Из двумерного массива случайных целых чисел от 0 до 10 удалить строку и столбец, на 
+// пересечении которых расположен наименьший элемент.
