@@ -20,7 +20,7 @@ int[,,] GenerateTripleArr(int nx = 4, int ny = 4, int nz = 4)          // Фун
         {
             for (int z = 0; z < nz; z++)
             {
-                do val = rnd.Next(10,100);                              // Заполняем уникальными
+                do val = rnd.Next(10,100);                              // Заполняем уникальными числами
                 while (vals.Contains(val));
                 tripleArr[x, y, z] = val;
                 vals.Add(val);
