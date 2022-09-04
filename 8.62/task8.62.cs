@@ -14,7 +14,7 @@ int[,] FillArray(int nr = 5, int nc = 5)                    // Функция з
     int c = -1;
     int newC = c;
     int newR = r;
-    
+
     do
     {
         switch (direction)
@@ -29,8 +29,8 @@ int[,] FillArray(int nr = 5, int nc = 5)                    // Функция з
             if (arr[newR, newC] != 0)
             {
                 ChangeDirection(ref direction);
-                    newR = r; newC = c;
-                    continue;
+                newR = r; newC = c;
+                continue;
             }
             arr[newR, newC] = val;
         }
