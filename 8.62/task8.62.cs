@@ -42,7 +42,7 @@ int[,] FillArray(int nr = 5, int nc = 5)                    // Функция з
         c = newC; r = newR;
         val++;
     }
-    while (val < nr * nc + 1);
+    while (val <= nr * nc);
     return arr;
 }
 
