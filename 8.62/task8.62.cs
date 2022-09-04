@@ -14,6 +14,7 @@ int[,] FillArray(int nr = 5, int nc = 5)                    // Функция з
     int c = -1;
     int newC = c;
     int newR = r;
+    
     do
     {
         switch (direction)
