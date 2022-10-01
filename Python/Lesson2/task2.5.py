@@ -9,10 +9,10 @@ from datetime import datetime
 start = datetime.now()
 
 
-def CheckPredicats(predicats):
-    left = predicats[0][0]
-    right = not predicats[0][0]
-    for i in predicats:
+def CheckPredicates(predicates):
+    left = predicates[0][0]
+    right = not predicates[0][0]
+    for i in predicates:
         print(i, end=": ")
         for j in i:
             left = left or j
@@ -21,10 +21,10 @@ def CheckPredicats(predicats):
         print(f"{left} = {right} => {left == right}")
 
 
-predicats = list(product(range(2), repeat=randint(5, 11)))
+predicates = list(product(range(2), repeat=randint(5, 11)))
 
 for c in range(10):
     print(f"================Проход #{c + 1}================")
-    CheckPredicats(predicats)
+    CheckPredicates(predicates)
 
 print(f"Выполнено за {(datetime.now() - start).total_seconds()} секунд")
