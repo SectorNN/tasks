@@ -7,9 +7,9 @@ from random import randint
 from datetime import datetime
 
 start = datetime.now()
-predicats = list(product(range(2), repeat=randint(5, 11)))
 
-for k in range(10):
+
+def CheckPredicats(predicats):
     left = predicats[0][0]
     right = not predicats[0][0]
     for i in predicats:
@@ -19,5 +19,12 @@ for k in range(10):
             right = right and not j
         left = not left
         print(f"{left} = {right} => {left == right}")
+
+
+predicats = list(product(range(2), repeat=randint(5, 11)))
+
+for c in range(10):
+    print(f"================Проход #{c + 1}================")
+    CheckPredicats(predicats)
 
 print(f"Выполнено за {(datetime.now() - start).total_seconds()} секунд")
