@@ -32,7 +32,7 @@ sortList = []
 for _ in range(sizeX):
     sortList.append([])
     for _ in range(sizeY):
-        sortList[-1].append(randint(0, 10))
+        sortList[-1].append(randint(0, 10)) 
 
 print(sortList)
 
