@@ -56,6 +56,7 @@ while 1:
         case '/help':
             print("\n".join(availCmds))
         case '/rent':
+            print("Выбирете доступный автомобиль:")
             car = SelectCar(cars)
             if car == -1:
                 continue
@@ -68,7 +69,6 @@ while 1:
                     f" !ЗАБРОНИРОВАН! на {date.today()}"
             # save()
         case '/add':
-            print("Выбирете доступный автомобиль:")
             cars.append({"name": input("Марка и модель авто: "), "year": input("Год выпуска: "), "gbox": input(
                 "Тип коробки (MT/AT): "), "engine": input("Мощность двигателя: "), "class": input("Класс авто: ")})
             save()
