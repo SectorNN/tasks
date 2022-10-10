@@ -49,12 +49,11 @@ def StateCheck(pool, playerTurn):
 
 pool = 2021
 playerTurn = randint(0, 1)
-sCheck = 1
 clear()
 print(f"Игра начинается! На столе {pool} конфет!\n")
 if playerTurn: print("В жеребьёвке побеждает бот, он ходит первым!\n")
 
-while sCheck:
+while 1:
     maxTurn = 28
     if pool < 28:
         maxTurn = pool
