@@ -24,7 +24,7 @@ def Turn(maxTurn):
 
 
 def BotTurn(playerTurn):
-    if pool == 107:
+    if pool == 2021:
         amount = 20
     elif pool < 29:
         amount = pool
@@ -47,7 +47,7 @@ def StateCheck(pool, playerTurn):
     return pl
 
 
-pool = 107
+pool = 2021
 playerTurn = randint(0, 1)
 sCheck = 1
 clear()
