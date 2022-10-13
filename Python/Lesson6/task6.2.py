@@ -24,7 +24,20 @@ def calc(l, r, op):
     return round(res, 2)
 
 
+def parse_all(string):
+    print (f"Parsing: {string}...\n")
+    string = parse(string, ["*", "/"])
+    string = parse(string, ["+", "-"])
+    return string
+
+
 def parse(string, opers):
+    br1 = string.find("(")
+    if br1 >= 0:
+        br2 = string.rfind(")")
+        string = string.replace(string[br1:br2 + 1], parse_all(string[br1 + 1:br2]))
+        return parse_all(string)
+
     i = 0
     while i < len(string):
         if string[i] in opers:
@@ -44,13 +57,14 @@ def parse(string, opers):
             print(f"left = {left}, right = {right}, oper = {oper}")
             res = calc(float(left), float(right), oper)
             string = string.replace(f"{left}{oper}{right}", str(res), 1)
-            print(f"Res = {string}")
+            print(f"Res = {string}\n")
             i = 0
         i += 1
     return string
 
 
-some_str = "1+2+33*10*15/7*34/10"
+some_str = "1+((2+33)*10)*10*15/7*34/10"
 
-some_str = parse(some_str, ["*", "/"])
-some_str = parse(some_str, ["+", "-"])
+print (f"Initial string: {some_str}\n")
+
+some_str = parse_all(some_str)
