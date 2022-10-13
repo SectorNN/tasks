@@ -51,7 +51,7 @@ def parse(string, opers):
             right = string[i + 1:i + count]
 
             count = 1
-            while (string[i - count - 1].isdigit() or string[i - count - 1] == ".") and i - count > 0:
+            while (string[i - count - 1].isdigit() or string[i - count - 1] == "." or string[i - count - 1] == "-") and i - count > 0:
                 count += 1
             left = string[i - count:i]
             print(f"left = {left}, right = {right}, oper = {oper}")
