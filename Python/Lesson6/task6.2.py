@@ -41,9 +41,14 @@ def parse(string, opers):
     i = 0
     while i < len(string):
         if string[i] in opers:
+            if not i:
+                i += 1
+                continue
             oper = string[i]
             try:
                 count = 1
+                if string[i + count] == "-":
+                    count += 1
                 while string[i + count].isdigit() or string[i + count] == ".":
                     count += 1
             except:
@@ -51,7 +56,10 @@ def parse(string, opers):
             right = string[i + 1:i + count]
 
             count = 1
-            while (string[i - count - 1].isdigit() or string[i - count - 1] == "." or string[i - count - 1] == "-") and i - count > 0:
+            while (string[i - count - 1].isdigit() or string[i - count - 1] == ".") and i - count > 0:
+                count += 1
+                #print (f"count = {count}, i = {i}")
+            if (not string[i - count - 2].isdigit() or not string[0].isdigit()) and i - count > 0:
                 count += 1
             left = string[i - count:i]
             print(f"left = {left}, right = {right}, oper = {oper}")
@@ -63,7 +71,7 @@ def parse(string, opers):
     return string
 
 
-some_str = "1+((2+33)*10)*10*15/7*34/10"
+some_str = "2+(5*(10-515))*6/8-11*100"
 
 print (f"Initial string: {some_str}\n")
 
