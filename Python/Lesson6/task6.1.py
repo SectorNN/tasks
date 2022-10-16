@@ -106,7 +106,7 @@ def CheckState(table):
     return 1
 
 
-m = n = 4
+m = n = 3
 max_num = m * n
 
 table = []
