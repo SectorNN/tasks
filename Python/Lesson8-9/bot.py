@@ -77,6 +77,8 @@ def dump(message):
         f"Recieved message: {message.text} from {message.from_user.username} ({message.from_user.first_name} {message.from_user.last_name})")
     if "Введите данные" in message.reply_to_message.text and message.reply_to_message.from_user.id == 5467228530:
         car = list(map(lambda x: x.strip(), message.text.split(",")))
+        bot.delete_message(message.reply_to_message.chat.id, message.reply_to_message.id)
+        bot.delete_message(message.chat.id, message.id)
         if len(car) != 5:
             head = "Не удалось распознать, повторите ввод согласно шаблону!\n\nВведите данные автомобиля в формате:\n\n<pre>name, year, gbox, engine, class</pre>\n\nПример:\n\nHammer H2, 2007, AT, 315, Premium"
             bot.send_message(message.chat.id, head, reply_markup=telebot.types.ForceReply(selective=False))
@@ -118,6 +120,7 @@ def callback_query(cb):
             logger.write(f"Car rent: {car[1]} to {cb.from_user.username} ({cb.from_user.first_name} {cb.from_user.last_name})")
 
         case 'add':
+            bot.delete_message(cb.from_user.id, cb.message.id)
             head = "Введите данные автомобиля в формате:\n\n<pre>Модель, год, КПП, мощность, класс</pre>\n\nПример:\n\nHammer H2, 2007, AT, 315, Premium"
             bot.send_message(cb.from_user.id, head, reply_markup=telebot.types.ForceReply(selective=False))
 
