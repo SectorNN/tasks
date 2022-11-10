@@ -1,3 +1,4 @@
+import csv
 import json
 import telebot
 import sql
@@ -22,6 +23,7 @@ def gen_m_menu():
                InlineKeyboardButton("Добавить автомобиль в базу ➕", callback_data=json.dumps({"act": "add"})),
                InlineKeyboardButton("Удалить автомобиль из базы ➖", callback_data=json.dumps({"act": "del_1", "id": False})),
                InlineKeyboardButton("Загрузить базу по-умолчанию ♻️", callback_data=json.dumps({"act": "reload"})),
+               InlineKeyboardButton("Экспортировать БД в CSV 🗳", callback_data=json.dumps({"act": "export"})),
                InlineKeyboardButton("Скачать лог 📋", callback_data=json.dumps({"act": "getlog"})))
     return markup
 
@@ -120,7 +122,7 @@ def callback_query(cb):
             logger.write(f"Car rent: {car[1]} to {cb.from_user.username} ({cb.from_user.first_name} {cb.from_user.last_name})")
 
         case 'add':
-            bot.delete_message(cb.from_user.id, cb.message.id)
+            #bot.delete_message(cb.from_user.id, cb.message.id)
             head = "Введите данные автомобиля в формате:\n\n<pre>Модель, год, КПП, мощность, класс</pre>\n\nПример:\n\nHammer H2, 2007, AT, 315, Premium"
             bot.send_message(cb.from_user.id, head, reply_markup=telebot.types.ForceReply(selective=False))
 
@@ -151,6 +153,13 @@ def callback_query(cb):
         case "getlog":
             with open('logdata.txt', 'r', encoding='UTF-8') as fh:
                 bot.send_document(cb.from_user.id, fh)
+
+        case "export":
+            with open('csv.csv', 'w+', newline='') as f:
+                csv_wr = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
+                csv_wr.writerows(sql.db_get_cars(with_headers = True))
+                f.seek(0)
+                bot.send_document(cb.from_user.id, f)
 
 
 print("Бот запущен!")

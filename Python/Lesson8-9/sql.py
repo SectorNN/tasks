@@ -42,7 +42,7 @@ def db_del(id):
         cursor.execute(sql, (id,))
 
 
-def db_get_cars():
+def db_get_cars(with_headers = False):
     with pyodbc.connect(connstr) as cnxn:
         cursor = cnxn.cursor()
 
@@ -50,6 +50,8 @@ def db_get_cars():
 
         cursor.execute(sql)
         row = cursor.fetchall()
+        if with_headers:
+            row.insert(0, [i[0] for i in cursor.description])
         return row
 
 
